@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1581384659 source:c:\users\usuario\desktop\c++\codeblocks\practica\buffer.cpp
+	"Buffer.h"
+
+1581384488 c:\users\usuario\desktop\c++\codeblocks\practica\include\buffer.h
+	<string>
+	<vector>
+
+1581389085 source:c:\users\usuario\desktop\c++\codeblocks\practica\editor.cpp
+	"Editor.h"
+	<fstream>
+	<iostream>
+	<sstream>
+
+1581384826 c:\users\usuario\desktop\c++\codeblocks\practica\include\editor.h
+	<curses.h>
+	"Buffer.h"
+
+1581385976 source:c:\users\usuario\desktop\c++\codeblocks\practica\main.cpp
+	<iostream>
+	<curses.h>
+	<string>
+	"Editor.h"
+
