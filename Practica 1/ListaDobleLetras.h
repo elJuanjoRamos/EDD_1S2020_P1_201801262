@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Nodo.h"
+#include "Cambio.h"
 
 using namespace std;
 
@@ -12,10 +13,10 @@ class ListaDobleLetras
 {
 public:
     Nodo* primero, * ultimo = NULL;
+    Cambio* cambio = NULL;
     int contador = 0;
     ListaDobleLetras();
     void Insertar(char l, int x, int y);
-    void InsertarFinal(char l, int x, int y);
     void InsertarReemplazo(char l, int x, int y);
     bool NodoInterno(int x, int y);
     void Mostrar();
@@ -26,5 +27,8 @@ public:
     bool Buscar(string linea);
     string trim(string& str);
     int getContador();
+    Cambio* getCambio();
+    void GuardarArchivo(string texto);
+    void limpiarCambio();
     virtual ~ListaDobleLetras();
 };

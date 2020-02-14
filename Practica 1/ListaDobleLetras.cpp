@@ -1,5 +1,5 @@
 #include "ListaDobleLetras.h"
-
+#include <fstream>
 
 ListaDobleLetras::ListaDobleLetras()
 {
@@ -14,7 +14,7 @@ ListaDobleLetras::~ListaDobleLetras()
 
 
 
-
+/* METODO INSERTAR DE LA LISTA DOBLE CON UNA MODIFICACION PARA INSERTAR EN MEDIO DE OTROS NODOS*/
 void ListaDobleLetras::Insertar(char dato, int x1, int y1) {
 	Nodo* nuevo;
 
@@ -50,19 +50,9 @@ void ListaDobleLetras::Insertar(char dato, int x1, int y1) {
 		Reordenar();
 	}
 }
+/*******************************************************/
 
-void ListaDobleLetras::InsertarFinal(char dato, int x1, int y1) {
-	Nodo* nuevo =  new Nodo(dato, x1, y1);
-	
-	ultimo->sig = nuevo;
-	nuevo->sig = NULL;
-	nuevo->ant = ultimo;
-	ultimo = nuevo;
-	Reordenar();
-	
-}
-
-
+/* METODO QUE VERIFICA SI EXISTE UN NODO EN LA POSICION XY EN LA QUE SE ESTA INTENTANDO INSERTAR*/
 bool ListaDobleLetras::NodoInterno(int x1, int y1) {
 
 	Nodo* temp = new Nodo();
@@ -81,7 +71,11 @@ bool ListaDobleLetras::NodoInterno(int x1, int y1) {
 	}
 	return false;
 }
+/*****************************************************/
 
+
+
+/* CREA UNA MINI LISTA QUE CONTIENE LOS NODOS DE LA PALABRA A REEMPLAZAR*/
 Nodo* primeroReemplazo = NULL;
 Nodo* ultimoReemplazo = NULL;
 
@@ -102,7 +96,7 @@ void ListaDobleLetras::InsertarReemplazo(char dato, int x, int y) {
 		ultimoReemplazo = nuevo;
 	}
 }
-
+/**************************************************************************/
 
 
 void ListaDobleLetras::Mostrar() {
@@ -287,6 +281,12 @@ void ListaDobleLetras::Reemplazar(string letras, string reemplazo) {
 
 		}
 	}
+
+	/*Crea un objeto cambio que contendra el la palabra reemplazo y la original*/
+	cambio = NULL;
+	cambio = new Cambio(
+	);
+
 	primeroReemplazo = NULL;
 	ultimoReemplazo = NULL;
 	Reordenar();
@@ -295,7 +295,61 @@ void ListaDobleLetras::Reemplazar(string letras, string reemplazo) {
 int ListaDobleLetras::getContador() {
 	return contador;
 }
+
+/* LIMPIA LA LISTA */
 void ListaDobleLetras::LimpiarLista() {
 	primeroReemplazo = NULL;
 	primero = NULL;
+}
+/**********************/
+
+
+Cambio* ListaDobleLetras::getCambio() {
+	return cambio;
+}
+
+void ListaDobleLetras::limpiarCambio() {
+
+}
+
+void ListaDobleLetras::GuardarArchivo(string nombre) {
+	Nodo* aux = primero->sig;
+	string texto = "";
+
+	ofstream fout; //object created **fout**
+	fout.open(nombre+".txt");
+	while (aux != NULL)
+	{
+		if (aux->letra != '\n') {
+			texto = texto + aux->letra;
+		}
+		else {
+			fout << texto << endl;
+			texto = "";
+		}
+		aux = aux->sig;
+	}
+
+	fout.close();
+
+	/*
+	fstream archivo;
+	archivo.open(nombre + ".txt", ios::in);
+
+	if (archivo.is_open()) {
+		while (aux != NULL)
+		{
+			if (aux->letra != '\n') {
+				texto = texto + aux->letra;
+			}
+			else {
+				archivo << texto << endl;
+			}
+		}
+		archivo.close();
+
+	}
+	else {
+		cout << "no se encontro el archivo";
+	}*/
 }

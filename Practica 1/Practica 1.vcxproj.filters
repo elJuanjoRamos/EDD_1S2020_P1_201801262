@@ -30,6 +30,15 @@
     <ClCompile Include="ListaDobleLetras.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cambio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PilaCambio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PilaRevertido.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="metodos.h">
@@ -39,6 +48,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ListaDobleLetras.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cambio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PilaCambio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PilaRevertido.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

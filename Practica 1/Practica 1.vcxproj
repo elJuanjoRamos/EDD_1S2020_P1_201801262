@@ -147,16 +147,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cambio.cpp" />
     <ClCompile Include="ListaDobleLetras.cpp" />
     <ClCompile Include="metodos.cpp" />
     <ClCompile Include="Nodo.cpp" />
+    <ClCompile Include="PilaCambio.cpp" />
+    <ClCompile Include="PilaRevertido.cpp" />
     <ClCompile Include="Practica 1.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cambio.h" />
     <ClInclude Include="ListaDobleLetras.h" />
     <ClInclude Include="metodos.h" />
     <ClInclude Include="Nodo.h" />
+    <ClInclude Include="PilaCambio.h" />
+    <ClInclude Include="PilaRevertido.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

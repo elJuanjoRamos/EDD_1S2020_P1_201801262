@@ -96,4 +96,3 @@ bool metodos::EsUnNumero(string cadena)
 	return true;
 }
 
-

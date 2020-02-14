@@ -6,6 +6,7 @@
 #include "metodos.h"
 #include "Nodo.h"
 #include "ListaDobleLetras.h"
+#include "PilaCambio.h"
 #include <vector>
 
 using namespace std;
@@ -16,6 +17,7 @@ string opc = "";
 
 metodos m;
 ListaDobleLetras lista;
+PilaCambio pilaCambio;
 
 
 void CrearArchivo();
@@ -58,7 +60,7 @@ int main()
 			//Eliminar();
 		}
 		else if (opcion == 4) {
-			//MSGBOX("Gracias por su Tiempo....","Hasta la Vista...."); 
+			cout<<("\nGracias por su Tiempo....","Hasta la Vista...."); 
 			Salir = true;
 		}
 		else {
@@ -101,6 +103,7 @@ void CrearArchivo() {
 	do {
 		key_press = _getch();
 		ascii_value = key_press;
+
 		//cout << "el ascii"<< ascii_value << "el key"<< key_press;
 		
 		if (ascii_value == -32) {
@@ -145,20 +148,43 @@ void CrearArchivo() {
 			espacio++;
 		}
 		else if (key_press == 23) { //Presiono Control W
+			int x = m.wherex();
+			int y = m.wherey();
+			lista.Insertar('\n', x, y);
 			cout << "\nIngrese el texto a buscar: ";
 			string buscar = "";
 			cin >> buscar;
 			if (lista.Buscar(buscar)) {
 				Limpiar();
-				cout << "\n------------------------------";
+				cout << "\n------------------------------\n";
 				cout << lista.getContador() << " Palabra(s) afectada(s)\n";
-				cout << "\n------------------------------";
+				cout << "\n------------------------------\n";
 				system("pause");
 				Limpiar();
 			}
 			else {
 				cout << "No se ha detectado coincidencia";
 			}
+		}
+		else if(key_press == 19){ //PRESIONO CONTROL S
+			
+			string buscar = "";
+			cout << "\n------------------------------\n";
+			cout << "\n| Infrese el nombre del archivo:";
+			cin >> buscar;
+			cout << "\n------------------------------\n";
+
+			if (buscar != "") {
+				lista.GuardarArchivo(buscar);
+				cout << "\n Archivo Guardado correctamente \n";
+				system("pause");
+			}
+			else {
+				cout << "\n Debe introducir un nombre valido";
+				system("pause");
+			}
+			Limpiar();
+
 		}
 		else {
 			int x = m.wherex();
