@@ -147,20 +147,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archivos.cpp" />
     <ClCompile Include="Cambio.cpp" />
+    <ClCompile Include="ListaCircular.cpp" />
     <ClCompile Include="ListaDobleLetras.cpp" />
     <ClCompile Include="metodos.cpp" />
     <ClCompile Include="Nodo.cpp" />
+    <ClCompile Include="NodoCircular.cpp" />
     <ClCompile Include="PilaCambio.cpp" />
     <ClCompile Include="PilaRevertido.cpp" />
     <ClCompile Include="Practica 1.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Archivos.h" />
     <ClInclude Include="Cambio.h" />
+    <ClInclude Include="ListaCircular.h" />
     <ClInclude Include="ListaDobleLetras.h" />
     <ClInclude Include="metodos.h" />
     <ClInclude Include="Nodo.h" />
+    <ClInclude Include="NodoCircular.h" />
     <ClInclude Include="PilaCambio.h" />
     <ClInclude Include="PilaRevertido.h" />
   </ItemGroup>

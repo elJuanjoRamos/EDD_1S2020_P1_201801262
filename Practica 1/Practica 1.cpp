@@ -5,9 +5,12 @@
 #include "string.h"
 #include "metodos.h"
 #include "Nodo.h"
+#include "Archivos.h"
 #include "ListaDobleLetras.h"
+#include "ListaCircular.h"
 #include "PilaCambio.h"
 #include <vector>
+#include "PilaRevertido.h"
 
 using namespace std;
 
@@ -18,12 +21,32 @@ string opc = "";
 metodos m;
 ListaDobleLetras lista;
 PilaCambio pilaCambio;
-
-
+PilaRevertido pilaRevertido;
+Archivos arch;
+ListaCircular listacircular;
 void CrearArchivo();
-
+void AbrirArchivo(string ruta);
+void ArchivosRecientes();
 int main()
 {
+	/*std::cout << "APILAR ELEMENTOS\n";
+	PilaCambio pila;
+	pila.push(new Cambio("Hola", "Ola", true, "Hola", 1, 1));
+	pila.push(new Cambio("Trabajar", "Ola", true, "Trabajar", 1, 1));
+	pila.push(new Cambio("Work", "Ola", true, "Work", 1, 1));
+	pila.push(new Cambio("XD", "Ola", true, "XD", 1, 1));
+
+	pila.mostrar_pila();
+	std::cout << "ELIMINAR TOPE\n";
+
+	
+	std::cout << "ELIMINADO " << pila.pop()->palabra << " \n";
+	std::cout << "ELIMINADO " << pila.pop()->palabra << "\n";
+	pila.mostrar_pila();
+
+	std::cout << "DESTRUIR PILA\n";
+	pila.destruir_pila();
+	pila.mostrar_pila();*/
 	
 	bool Salir = false;
 	do {
@@ -48,18 +71,32 @@ int main()
 
 		if (opcion == 1)
 		{
+			//Limpia la lista para poner nuevos caracteres
+			lista.LimpiarLista();
+			lista.Insertar(' ', 0, 4);
 			m.Cls();
 			CrearArchivo();
 		}
 		else if (opcion == 2) {
+			//Limpia la lista para poner nuevos caracteres
+			lista.LimpiarLista();
+			lista.Insertar(' ', 0, 4);
 			m.Cls();
-			lista.Mostrar();
+			puts("Carga de Archivos Simple v1");
+			puts("Ingrese la ruta del archivo, segido del nombre con su extension");
+			puts("------------------------------------");
+			string ruta;
+			cout << ">>";
+			cin >> ruta;
+			AbrirArchivo(ruta);
 		}
 		else if (opcion == 3) {
-			//Cls();
-			//Eliminar();
+			m.Cls();
+			ArchivosRecientes();
 		}
 		else if (opcion == 4) {
+			//m.Cls();
+			//pilaCambio.mostrar_pila();
 			cout<<("\nGracias por su Tiempo....","Hasta la Vista...."); 
 			Salir = true;
 		}
@@ -85,9 +122,7 @@ void Limpiar() {
 }
 
 void CrearArchivo() {
-	//Limpia la lista para poner nuevos caracteres
-	lista.LimpiarLista();
-	lista.Insertar('.', 0, 4);
+
 	Limpiar();
 
 	//variable para leer datos
@@ -148,12 +183,21 @@ void CrearArchivo() {
 			espacio++;
 		}
 		else if (key_press == 23) { //Presiono Control W
-			int x = m.wherex();
+			/*int x = m.wherex();
 			int y = m.wherey();
 			lista.Insertar('\n', x, y);
+			*/
+			
+			
 			cout << "\nIngrese el texto a buscar: ";
 			string buscar = "";
 			cin >> buscar;
+			size_t found = buscar.find(";");
+			vector<string> palabra;
+			palabra.push_back(buscar.substr(0, found)); //palabra a bucar
+
+			palabra.push_back(buscar.substr(found + 1, buscar.size())); // palabra a reemplazar
+			
 			if (lista.Buscar(buscar)) {
 				Limpiar();
 				cout << "\n------------------------------\n";
@@ -161,16 +205,43 @@ void CrearArchivo() {
 				cout << "\n------------------------------\n";
 				system("pause");
 				Limpiar();
+				//GUARDAR PILA
+				pilaCambio.push(new Cambio(palabra[0], palabra[1], false, "", 0, 0));
+				pilaCambio.mostrar_pila();
 			}
 			else {
 				cout << "No se ha detectado coincidencia";
 			}
 		}
+		else if (key_press == 25) { //Presiono CONTROL Y REHACER
+			if (!pilaRevertido.pilaVacia()) {
+				Cambio* c = pilaRevertido.pop();
+				c->estado = true;
+				pilaCambio.push(c);
+				string buscar = c->buscar + ";" + c->reemplazar;
+				if (lista.Buscar(buscar)) {
+					Limpiar();
+				}
+			}
+		}
+		else if (key_press == 26) { //Presiono CONTROL Z DESHACER
+			if (!pilaCambio.pilaVacia()) {
+				Cambio* c = pilaCambio.pop();
+				c->estado = true;
+				pilaRevertido.push(c);
+				string buscar = c->reemplazar + ";" + c->buscar;
+				if (lista.Buscar(buscar)) {
+					Limpiar();
+				}
+			}
+		}
 		else if(key_press == 19){ //PRESIONO CONTROL S
 			
+
+
 			string buscar = "";
 			cout << "\n------------------------------\n";
-			cout << "\n| Infrese el nombre del archivo:";
+			cout << "\n| Ingrese el nombre del archivo:";
 			cin >> buscar;
 			cout << "\n------------------------------\n";
 
@@ -190,6 +261,7 @@ void CrearArchivo() {
 			int x = m.wherex();
 			int y = m.wherey();
 			lista.Insertar(key_press, x, y);
+			//pilaCambio.push(new Cambio("", "", false, ""+key_press, x, y));
 			Limpiar();
 		}
 		key_press = ' ';
@@ -199,7 +271,131 @@ void CrearArchivo() {
 
 
 
+void AbrirArchivo(string ruta) {
+	
+	string cont = arch.Leer(ruta);
+	
+	
+	if (cont != "NULL")
+	{
+		for (size_t i = 0; i < cont.size(); i++)
+		{
+			lista.Insertar(cont[i]);
+		}
+		puts(" ");
+		puts("---------------------------------------");
+		puts("     Archivo encontrado con exito");
+		puts("---------------------------------------");
+		
+		puts(">> Los datos seran mostrados en el editor");
 
+		////// GUARDA EL NOMBRE DE ARCHIVO Y RUTA DENTRO DE LA LISTA DOBLE
+		string nombre = "";
+		for (size_t i = ruta.size() - 1; i > 0; i--)
+		{
+			if (ruta[i] == '\\')
+			{
+				nombre = ruta.substr(i + 1, ruta.size());
+				break;
+			}
+		}
+		listacircular.insertar(nombre, ruta);
+		/////////////////////////////////////////
+
+		system("pause");
+		CrearArchivo();
+
+	}
+	else {
+		puts(" ");
+		puts("------------------------------------");
+		puts("       Archivo No encontrado");
+		puts("------------------------------------");
+		system("pause");
+	}
+
+	
+
+}
+
+
+void ArchivosRecientes() {
+	lista.LimpiarLista();
+	puts("Selector Simple v1");
+	puts("Datos de archivos vistos anteriormente");
+	puts("Presione 'ESC' para terminar");
+	puts("------------------------------------");
+	char key_press;
+	int ascii_value;
+
+
+	if (!listacircular.esVacia())
+	{
+		listacircular.recorrer();
+		puts(" ");
+		
+
+		string opc = "";
+		if (opc == "")
+		{
+			do
+			{
+				opc = "";
+				cout << "\n" << "\t\t\t" << "    Por favor, ingrese el valor: ";
+				cin >> opc;
+				if (opc == "X") {
+					opc = "100";
+					break;
+				}
+			} while (m.EsUnNumero(opc) != true);
+		}
+
+		int opcion = atoi(opc.c_str());
+		opc = "";
+		string rutaArchivo = listacircular.buscarArchivo(opcion);
+		if (rutaArchivo != "NULL")
+		{
+			AbrirArchivo(rutaArchivo);
+			CrearArchivo();
+		}
+		else {
+			puts("------------------------------------");
+			puts("        ARCHIVO NO ENCONTRADO       ");
+			puts("------------------------------------");
+			system("pause");
+		}
+
+
+		/*do {
+
+		} while (ascii_value == 27 || ascii_value == 88 );
+
+
+
+
+		key_press = _getch();
+		ascii_value = key_press;
+
+		if (ascii_value == 27) //presiono ESC sale del bucle
+		{
+		}
+		else if (ascii_value == 88) {
+			cout << "presiono x";
+		}
+		else {
+
+		}*/
+
+
+
+	}
+	else {
+		puts("No hay registros de archivos");
+		system("pause");
+	}
+
+
+}
 
 
 /*void Insertar(char dato, int as, int x, int y) {

@@ -15,59 +15,69 @@ PilaCambio::~PilaCambio()
 }
 
 
-
-
-
-
 /*                        Apilar elemento
 ------------------------------------------------------------------------*/
-void PilaCambio::push(Cambio* p, Cambio* n)
+/*void PilaCambio::push(Cambio* p, Cambio* n)
 {
     Cambio* aux = n;  // apuntamos al nuevo nodo creado
     aux->sig = p;
     p = aux;
+}*/
+
+void PilaCambio::push(Cambio* p)
+{
+    Cambio* n;
+    n = p;
+    n->sig = ptrPila;
+    ptrPila = n;
+}
+
+bool PilaCambio::pilaVacia()
+{
+    return ptrPila == NULL;
 }
 
 /*                Desapilar elemento(devuelve elemento)
 ------------------------------------------------------------------------*/
-Cambio* PilaCambio::pop(Cambio* p)
+
+Cambio* PilaCambio::pop()
 {
-    Cambio* num;
-    Cambio* aux;
-
-    aux = p;
-    num = aux;   // asignamos el primer vamor de la pila
-
-    p = aux->sig;
-    delete(aux);
-
-    return num;
+    if (pilaVacia())
+        throw "Pila vacía, no se puede extraer.";
+    Cambio *aux = ptrPila;
+    ptrPila = ptrPila->sig;
+    return aux;
 }
 
 /*                     Muestra elementos de la pila
 ------------------------------------------------------------------------*/
-void PilaCambio::mostrar_pila(Cambio* p)
+void PilaCambio::mostrar_pila()
 {
-    Cambio* aux;
-    aux = p;     // apunta al inicio de la lista
+    if (pilaVacia()) {
+        std::cout << "Pila vacía, no se puede extraer.";
+    }
+    else {
+        Cambio* aux;
+        aux = ptrPila;     // apunta al inicio de la lista
 
-    while (aux != NULL)
-    {
-        cout << "\t" << aux->palabra<< endl;
-        aux = aux->sig;
+        while (aux != NULL)
+        {
+            cout << "\t" << aux->palabra << endl;
+            aux = aux->sig;
+        }
     }
 }
 
 /*                Eliminar todos los elementos de la pila
 ------------------------------------------------------------------------*/
-void PilaCambio::destruir_pila(Cambio* p)
+void PilaCambio::destruir_pila()
 {
     Cambio* aux;
 
-    while (p != NULL)
+    while (ptrPila != NULL)
     {
-        aux = p;
-        p = aux->sig;
+        aux = ptrPila;
+        ptrPila = aux->sig;
         delete(aux);
     }
 }

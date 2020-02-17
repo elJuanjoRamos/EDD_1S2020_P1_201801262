@@ -50,6 +50,29 @@ void ListaDobleLetras::Insertar(char dato, int x1, int y1) {
 		Reordenar();
 	}
 }
+
+/*****************************************************/
+/* METODO QUE INSERTA ELEMENTOS UNICAMENTE AL FINAL, ESTE METODO SE UTLIZA CUANDO SE HACE CARGA DE ARCHIVOS */
+void ListaDobleLetras::Insertar(char dato) {
+	Nodo* nuevo;
+
+	nuevo = new Nodo(dato, 0, 0);
+	if (primero == NULL) {
+		primero = nuevo;
+		primero->sig = NULL;
+		primero->ant = NULL;
+		ultimo = primero;
+	}
+	else {
+		ultimo->sig = nuevo;
+		nuevo->sig = NULL;
+		nuevo->ant = ultimo;
+		ultimo = nuevo;
+		
+	}
+	Reordenar();
+}
+
 /*******************************************************/
 
 /* METODO QUE VERIFICA SI EXISTE UN NODO EN LA POSICION XY EN LA QUE SE ESTA INTENTANDO INSERTAR*/
@@ -107,12 +130,14 @@ void ListaDobleLetras::Mostrar() {
 		while (actual != NULL)
 		{
 			if (actual->letra == ' ') {
+				//cout << " " << " (" << actual->x << "," << actual->y << ") ";
 				cout << " ";
 			} else if(actual->letra == '\n')
 			{
 				cout << "\n.";
 			}
 			else {
+				//cout << actual->letra << " (" << actual->x << "," << actual->y << ") ";
 				cout << actual->letra;
 			}//cout << actual->letra;
 			actual = actual->sig;
@@ -130,7 +155,7 @@ void ListaDobleLetras::Eliminar(int pox, int poy) {
 	Nodo* anterior = new Nodo();
 	anterior = NULL;
 	bool encontrado = false;
-	if (primero != NULL) {
+	if (actual != NULL) {
 
 		while (actual != NULL && encontrado != true) {
 
@@ -189,8 +214,43 @@ void ListaDobleLetras::Reordenar() {
 
 }
 
+void ListaDobleLetras::InsertarInicio(char entrada)
+{
+	Nodo* aux = new Nodo(entrada, 0, 0);
+	if (primero != NULL)
+	{
+		primero = aux;
+		ultimo = aux;
+	}
+	else {
+		aux->sig = primero;
+		primero->ant = aux;
+		primero = aux;
+	}
+}
+
+void ListaDobleLetras::InsertarUltimo(char entrada) {
+	Nodo* nuevo = new Nodo(entrada, 0, 0);
+	if (primero == NULL) {
+		primero = nuevo;
+		primero = ultimo;
+	}
+	else {
+		ultimo->sig = nuevo;
+		nuevo->ant = ultimo;
+		ultimo = nuevo;
+	}
+	
+}
+
 
 bool ListaDobleLetras::Buscar(string linea) {
+	//INSERTAR AL INICIO
+	//InsertarInicio(' ');
+	//INSERTAR AL FINAL
+	InsertarUltimo(' ');
+
+
 	vector<string> coincidencias;
 
 	string str = linea;
@@ -198,11 +258,12 @@ bool ListaDobleLetras::Buscar(string linea) {
 	int cantidad = 0;
 
 	size_t found = str.find(str1); //Hace split al texto de busqueda
+	
 	if (found != string::npos) {
 
-		coincidencias.push_back(linea.substr(0, found)); //palabra a bucar
+		coincidencias.push_back(linea.substr(0, found) + " "); //palabra a bucar
 
-		coincidencias.push_back(linea.substr(found + 1, linea.size())); // palabra a reemplazar
+		coincidencias.push_back(linea.substr(found + 1, linea.size()) + " "); // palabra a reemplazar
 
 		Nodo* aux = primero;
 		for (size_t i = 0; i < coincidencias[0].size(); i++)
@@ -225,18 +286,50 @@ bool ListaDobleLetras::Buscar(string linea) {
 		{
 			Reemplazar(trim(coincidencias[0]), trim(coincidencias[1]));
 			contador++;
+			//EliminarPrimero();
+			EliminarFinal();
 			Buscar(trim(linea));
 			return true;
 		}
 		else {
+			//EliminarPrimero();
+			EliminarFinal();
 			return false;
 		}
 	}
 	else {
 		return false;
 	}
+}
+
+void ListaDobleLetras::EliminarPrimero() {
+	if (primero != NULL) {
+		if (primero == ultimo) {
+			primero = NULL;
+			ultimo = NULL;
+		}
+		else {
+			primero = primero->sig;
+			primero->ant = NULL;
+		}
+
+	}
+}
 
 
+void ListaDobleLetras::EliminarFinal()
+{
+	if (primero == NULL) {
+		std::cout << "La lista esta vacía.";
+	}
+	else if (primero == ultimo) {
+		ultimo = NULL;
+		primero = NULL;
+	}
+	else {
+		ultimo = ultimo->ant;
+		ultimo->sig = NULL;
+	}
 }
 
 inline string ListaDobleLetras::trim(string& str)
@@ -316,22 +409,21 @@ void ListaDobleLetras::GuardarArchivo(string nombre) {
 	Nodo* aux = primero->sig;
 	string texto = "";
 
-	ofstream fout; //object created **fout**
-	fout.open(nombre+".txt");
-	while (aux != NULL)
+	if (aux != NULL)
 	{
-		if (aux->letra != '\n') {
-			texto = texto + aux->letra;
+		ofstream fout; //object created **fout**
+		fout.open(nombre + ".txt");
+		while (aux != NULL)
+		{
+			fout << aux->letra;
+			aux = aux->sig;
 		}
-		else {
-			fout << texto << endl;
-			texto = "";
-		}
-		aux = aux->sig;
+
+		fout.close();
 	}
 
-	fout.close();
-
+	
+	
 	/*
 	fstream archivo;
 	archivo.open(nombre + ".txt", ios::in);

@@ -12,9 +12,10 @@ class PilaCambio
 public:
     PilaCambio();
     Cambio* ptrPila = NULL;
-    void push(Cambio* p, Cambio* n);
-    Cambio* pop(Cambio* p);
-    void mostrar_pila(Cambio* p);
-    void destruir_pila(Cambio* p);
+    void push(Cambio* p);
+    bool pilaVacia();
+    Cambio* pop();
+    void mostrar_pila();
+    void destruir_pila();
     virtual ~PilaCambio();
 };
