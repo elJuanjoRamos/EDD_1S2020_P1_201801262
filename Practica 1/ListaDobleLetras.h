@@ -15,6 +15,7 @@ public:
     Nodo* primero, * ultimo = NULL;
     Cambio* cambio = NULL;
     int contador = 0;
+    bool ex = false;
     ListaDobleLetras();
     void Insertar(char l, int x, int y);
     void Insertar(char l);
@@ -27,13 +28,17 @@ public:
     void LimpiarLista();
     void Eliminar(/*Nodo* n*/ int x, int y);
     void Reemplazar(string letras, string reemplazo);
-    bool Buscar(string linea);
+    void Buscar(string linea);
     void EliminarPrimero();
     void EliminarFinal();
+    bool Existe();
+    void LimpiarEx();
     string trim(string& str);
     int getContador();
     Cambio* getCambio();
     void GuardarArchivo(string texto);
+	void GenerarGrafica(string nombre);
     void limpiarCambio();
+    void limpiarContador();
     virtual ~ListaDobleLetras();
 };

@@ -17,5 +17,6 @@ public:
     Cambio* pop();
     void mostrar_pila();
     void destruir_pila();
+	void GenerarGrafica(string nombre);
     virtual ~PilaRevertido();
 };

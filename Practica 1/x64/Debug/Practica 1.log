@@ -1,6 +1,20 @@
-﻿  Practica 1.cpp
-C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\ListaCircular.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\Practica 1.cpp(129,7): warning C4101: 'strLinea': unreferenced local variable
-C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\Practica 1.cpp(328,6): warning C4101: 'ascii_value': unreferenced local variable
-C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\Practica 1.cpp(327,7): warning C4101: 'key_press': unreferenced local variable
+﻿  Archivos.cpp
+  Cambio.cpp
+  ListaCircular.cpp
+C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\ListaCircular.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  ListaDobleLetras.cpp
+  metodos.cpp
+C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\metodos.cpp(83,16): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\metodos.cpp(83,18): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+  Nodo.cpp
+  NodoCircular.cpp
+  PilaCambio.cpp
+  PilaRevertido.cpp
+  Practica 1.cpp
+C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\ListaCircular.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\Practica 1.cpp(140,7): warning C4101: 'strLinea': unreferenced local variable
+C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\Practica 1.cpp(355,6): warning C4101: 'ascii_value': unreferenced local variable
+C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\Practica 1\Practica 1.cpp(354,7): warning C4101: 'key_press': unreferenced local variable
+  Source.cpp
+  Generating Code...
   Practica 1.vcxproj -> C:\Users\Usuario\Documents\USAC\3.Tercer Año\Estructuras de Datos\Proyectos\Practicas\p1\P1_3STRUCTURAS\x64\Debug\Practica 1.exe

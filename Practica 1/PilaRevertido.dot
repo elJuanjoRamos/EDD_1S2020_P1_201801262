@@ -1,0 +1,7 @@
+digraph G {node[shape = box];
+Nodo0 [label =  "Palabra Buscada:  java 
+Reemplazada por: phyton
+Estado:  Revertido
+Palabra: 
+Posicion: 0-0
+"]{rank=same; Nodo0;}}
